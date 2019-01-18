@@ -7,14 +7,13 @@ import org.jpacman.framework.ui.MainUI;
 import org.junit.Test;
 
 /**
- * Smoke test for the main UI: Just start it
- * and interact with it to see if no exceptions are thrown.
- * The bare minimum for any test suite.
+ * Smoke test for the main UI: Just start it and interact with it to see if no
+ * exceptions are thrown. The bare minimum for any test suite.
  * 
  * @author Arie van Deursen, TU Delft, Feb 4, 2012
  */
 public class MainUISmokeTest {
-	
+
 	@Test
 	public void testUIActions() throws FactoryException, InterruptedException {
 		MainUI ui = new MainUI();
@@ -35,7 +34,7 @@ public class MainUISmokeTest {
 		eventHandler.stop();
 		eventHandler.start();
 		eventHandler.right();
-		
+
 		// and we're done.
 		eventHandler.exit();
 	}

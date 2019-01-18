@@ -39,7 +39,7 @@ public class SpriteTest {
 	 */
 	@Test
 	public void testOccupy() {
-		assertTrue(center.containsSprite(john)); //veranders van true naar false
+		assertTrue(center.containsSprite(john)); // veranders van true naar false
 		assertThat(center.topSprite(), equalTo(john));
 		assertThat(john.getTile(), equalTo(center));
 	}
@@ -96,8 +96,8 @@ public class SpriteTest {
 	/**
 	 * @param expected
 	 *            The tile the sprite should be on.
-	 * @return A hamcrest matcher telling whether a sprite is the topmost one on
-	 *         a given tile.
+	 * @return A hamcrest matcher telling whether a sprite is the topmost one on a
+	 *         given tile.
 	 */
 	private static Matcher<Sprite> occupies(final Tile expected) {
 		return new BaseMatcher<Sprite>() {
@@ -109,8 +109,7 @@ public class SpriteTest {
 					return false;
 				}
 				Sprite theSprite = (Sprite) o;
-				return theSprite.getTile().equals(theTile)
-						&& theTile.topSprite().equals(theSprite);
+				return theSprite.getTile().equals(theTile) && theTile.topSprite().equals(theSprite);
 			}
 
 			@Override

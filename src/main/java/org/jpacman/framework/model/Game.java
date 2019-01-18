@@ -6,45 +6,43 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * Keep track of all activity that is going on during a game.
- * Provide access to key sprites in the game, such as the player
- * and the ghosts.
- * Provide functionality to make moves on the board, and keep
- * track of the points.
+ * Keep track of all activity that is going on during a game. Provide access to
+ * key sprites in the game, such as the player and the ghosts. Provide
+ * functionality to make moves on the board, and keep track of the points.
  * 
  * @author Arie van Deursen, TU Delft, Jan 28, 2012
  */
-public class Game extends Observable 
-	implements IGameInteractor {
-	
+public class Game extends Observable implements IGameInteractor {
+
 	/**
 	 * The underlying board.
 	 */
 	private Board theBoard;
-	
+
 	/**
 	 * The object to keep track of the points.
 	 */
 	private PointManager pointManager = new PointManager();
-	
+
 	/**
 	 * The lead player.
 	 */
 	private Player thePlayer;
-	
+
 	/**
 	 * All the ghosts in the game.
 	 */
 	private final List<Ghost> ghosts = new ArrayList<Ghost>();
-	
+
 	/**
-	 * @param b The underlying board.
+	 * @param b
+	 *            The underlying board.
 	 */
 	public void setBoard(Board b) {
 		assert b != null;
 		theBoard = b;
 	}
-	
+
 	@Override
 	public void movePlayer(Direction dir) {
 		Tile target = theBoard.tileAtDirection(thePlayer.getTile(), dir);
@@ -57,25 +55,30 @@ public class Game extends Observable
 			notifyViewers();
 		}
 	}
-		
-	/** 
-	 * Player intends to move towards tile already occupied: 
-	 * if there's food there, eat it.
-	 * @param p The player
-	 * @param currentSprite who is currently occupying the tile.
+
+	/**
+	 * Player intends to move towards tile already occupied: if there's food there,
+	 * eat it.
+	 * 
+	 * @param p
+	 *            The player
+	 * @param currentSprite
+	 *            who is currently occupying the tile.
 	 */
 	private void eatFood(Player p, Sprite currentSprite) {
 		if (currentSprite instanceof Food) {
 			Food f = (Food) currentSprite;
-			pointManager.consumePointsOnBoard(p,  f.getPoints());
+			pointManager.consumePointsOnBoard(p, f.getPoints());
 			f.deoccupy();
 		}
 	}
-	
+
 	/**
-	 * Player intends to move towards an occupied tile:
-	 * if there's a ghost there, the game is over.
-	 * @param p The player
+	 * Player intends to move towards an occupied tile: if there's a ghost there,
+	 * the game is over.
+	 * 
+	 * @param p
+	 *            The player
 	 * @param currentSprite
 	 */
 	private void dieIfGhost(Player p, Sprite currentSprite) {
@@ -83,7 +86,7 @@ public class Game extends Observable
 			p.die();
 		}
 	}
-	
+
 	@Override
 	public void moveGhost(Ghost theGhost, Direction dir) {
 		Tile target = theBoard.tileAtDirection(theGhost.getTile(), dir);
@@ -94,84 +97,96 @@ public class Game extends Observable
 			}
 			theGhost.occupy(target);
 			notifyViewers();
-		} 
+		}
 	}
 
 	/**
 	 * Check if there's room on the target tile.
-	 * @param target Tile to be occupied by other sprite.
+	 * 
+	 * @param target
+	 *            Tile to be occupied by other sprite.
 	 * @return
 	 */
 	private boolean tileCanBeOccupied(Tile target) {
 		Sprite currentOccupier = target.topSprite();
 		return !(currentOccupier instanceof Wall);
 	}
-	
+
 	/**
 	 * A player is added to the game.
-	 * @param p The player to be added.
+	 * 
+	 * @param p
+	 *            The player to be added.
 	 */
 	public void addPlayer(Player p) {
 		thePlayer = p;
 	}
-	
+
 	/**
 	 * Another ghost is added to the game.
-	 * @param g The ghost to be added.
+	 * 
+	 * @param g
+	 *            The ghost to be added.
 	 */
 	public void addGhost(Ghost g) {
 		ghosts.add(g);
 	}
-	
+
 	/**
 	 * Another piece of food is added to the game.
-	 * @param f The food to be added.
+	 * 
+	 * @param f
+	 *            The food to be added.
 	 */
 	public void addFood(Food f) {
 		pointManager.addPointsToBoard(f.getPoints());
 	}
-	
+
 	/**
 	 * @return The underlying board.
 	 */
 	public Board getBoard() {
 		return theBoard;
 	}
-	
+
 	/**
 	 * @return The player.
 	 */
 	public Player getPlayer() {
 		return thePlayer;
 	}
-	
+
 	/**
 	 * Attach an observer interested in state changes.
-	 * @param o The observer listening to this game.
+	 * 
+	 * @param o
+	 *            The observer listening to this game.
 	 */
 	@Override
 	public void attach(Observer o) {
 		addObserver(o);
 	}
-	
-    /**
-     * Warn the observers that the state has changed.
-     */
-    private void notifyViewers() {
-        setChanged();
-        notifyObservers();
-    }
 
-    /**
-     * @return The helper class for keeping track of points.
-     */
+	/**
+	 * Warn the observers that the state has changed.
+	 */
+	private void notifyViewers() {
+		setChanged();
+		notifyObservers();
+	}
+
+	/**
+	 * @return The helper class for keeping track of points.
+	 */
 	public IPointInspector getPointManager() {
 		return pointManager;
 	}
 
 	/**
 	 * Opt for another way of keeping track of the points.
-	 * @param pointManager Responsible for keeping track of points.
+	 * 
+	 * @param pointManager
+	 *            Responsible for keeping track of points.
 	 */
 	public void setPointManager(PointManager pointManager) {
 		this.pointManager = pointManager;
@@ -182,8 +197,8 @@ public class Game extends Observable
 	 */
 	@Override
 	public List<Ghost> getGhosts() {
-        List<Ghost> result = new ArrayList<Ghost>();
-        result.addAll(ghosts);
+		List<Ghost> result = new ArrayList<Ghost>();
+		result.addAll(ghosts);
 		return result;
 	}
 

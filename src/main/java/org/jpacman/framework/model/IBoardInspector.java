@@ -16,33 +16,28 @@ public interface IBoardInspector {
 	 * @return The height of the board, in number of cells.
 	 */
 	int getHeight();
-	
+
 	/**
 	 * The predefined set of sprite types.
 	 */
-	public enum SpriteType { 
-		PLAYER, 
-		GHOST, 
-		FOOD, 
-		EMPTY, 
-		WALL, 
-		OTHER
+	public enum SpriteType {
+		PLAYER, GHOST, FOOD, EMPTY, WALL, OTHER
 	};
-		
+
 	/**
-	 * @param x 
-	 * @param y 
+	 * @param x
+	 * @param y
 	 * @return The sprite at location (x,y).
 	 */
 	Sprite spriteAt(int x, int y);
-	
+
 	/**
-	 * @param x 
-	 * @param y 
+	 * @param x
+	 * @param y
 	 * @return The kind of sprite at location (x,y).
 	 */
 	SpriteType spriteTypeAt(int x, int y);
-	
+
 	// public Direction directionAt(int x, int y);
-	
+
 }

@@ -8,21 +8,20 @@ import org.jpacman.framework.model.Player;
 import org.jpacman.framework.model.Wall;
 
 /**
- * A factory for the classes related to the 
- * game, the board, and its content.
+ * A factory for the classes related to the game, the board, and its content.
  * 
  * @author Arie van Deursen, TU Delft, Jan 22, 2012
  */
 public class DefaultGameFactory implements IGameFactory {
 
 	private transient Game theGame;
-	
+
 	@Override
 	public Game makeGame() {
 		theGame = new Game();
 		return theGame;
 	}
-	
+
 	@Override
 	public Player makePlayer() {
 		assert theGame != null;

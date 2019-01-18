@@ -9,17 +9,18 @@ import java.awt.event.KeyListener;
  * @author Arie van Deursen, TU Delft, Jan 29, 2012
  */
 public class PacmanKeyListener implements KeyListener {
-	
+
 	/**
 	 * The interface to the underlying model.
 	 */
 	private final IKeyboardEvents modelEvents;
 
 	/**
-	 * Create a new keyboard listener, given a handler
-	 * for model events keyboard events should be mapped to.
+	 * Create a new keyboard listener, given a handler for model events keyboard
+	 * events should be mapped to.
 	 * 
-	 * @param me Events the model can handle.
+	 * @param me
+	 *            Events the model can handle.
 	 */
 	PacmanKeyListener(IKeyboardEvents me) {
 		modelEvents = me;
@@ -27,7 +28,7 @@ public class PacmanKeyListener implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// nothing.		
+		// nothing.
 	}
 
 	@Override
@@ -54,13 +55,13 @@ public class PacmanKeyListener implements KeyListener {
 			modelEvents.right();
 			break;
 		case KeyEvent.VK_Q:
-			modelEvents.stop();  
+			modelEvents.stop();
 			break;
 		case KeyEvent.VK_X:
-			modelEvents.exit(); 
+			modelEvents.exit();
 			break;
 		case KeyEvent.VK_S:
-			modelEvents.start(); 
+			modelEvents.start();
 			break;
 		default:
 			// all other events ignored.
